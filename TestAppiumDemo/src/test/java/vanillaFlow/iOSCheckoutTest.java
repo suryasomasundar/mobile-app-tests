@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import java.net.URL;
 import java.time.Duration;
 
-public class iOSAppCheckoutTest {
+public class iOSCheckoutTest {
 
     private AppiumDriver driver;
 
@@ -31,7 +31,7 @@ public class iOSAppCheckoutTest {
         capabilities.setCapability("automationName", "XCUITest");
 
 
-        // URL for Appium server (make sure it's running)
+        // URL for Appium server
         URL url = new URL("http://localhost:4723");
 
         // Initialize the driver for iOS Simulator
@@ -40,59 +40,61 @@ public class iOSAppCheckoutTest {
 
     @Test
     public void testLaunchApp() throws InterruptedException {
-        // Log to indicate that the app has been launched
+        // Log the app launch confirmation
         System.out.println("Successfully Launched App on Simulator");
 
-        // Step 1: Open app (already handled by setup)
-        System.out.println("Testing ..");
-
+        // WebDriverWait to handle waiting for elements dynamically
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
+        // Step 1: Open app (already handled by setup)
+        System.out.println("Testing Started ..");
 
-        // Step 1: Navigate to the first product on the list
+
+        // Step 2: Navigate to the first product on the list
         WebElement firstProduct = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[@label='Sauce Labs Backpack']")));
         firstProduct.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000); // Small Delay for visual quality check
 
+        // Step 3: Increase quantity to 2
         WebElement quantityIncreaseButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeOther[@name='counter plus button']")));
         quantityIncreaseButton.click(); // Increase quantity to 2
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
+        // Step 4: Add product to the cart
         WebElement addToCartButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeOther[@name='Add To Cart button']")));
         addToCartButton.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
+        // Step 5: Go to Cart
         WebElement cartIcon = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='tab bar option cart']"));
         cartIcon.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
+        // Step 6: Proceed to checkout
         WebElement proceedCheckout = driver.findElement(By.xpath("//XCUIElementTypeOther[@name='Proceed To Checkout button']"));
         proceedCheckout.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
 
-        // Step 5: Complete account creation
+        // Step 7: Complete account creation
         enterEmail("bob@example.com", "//XCUIElementTypeTextField[@name='Username input field']", 3);
 
         WebElement passwordField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeSecureTextField[@name= 'Password input field']")));
         WebElement confirmLoginButton = driver.findElement(By.xpath("//XCUIElementTypeOther[@name= 'Login button']"));
 
-        
         passwordField.clear();
         passwordField.click();
         passwordField.sendKeys("10203040");
         confirmLoginButton.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
+
+        // Step 8: Enter address details
         WebElement fullNameField = driver.findElement(By.xpath("//XCUIElementTypeTextField[@name= 'Full Name* input field']"));
-
         WebElement addressLine1Field = driver.findElement(By.xpath("//XCUIElementTypeTextField[@name= 'Address Line 1* input field']"));
-
         WebElement cityField = driver.findElement(By.xpath("//XCUIElementTypeTextField[@name= 'City* input field']"));
         WebElement zipCodeField = driver.findElement(By.xpath("//XCUIElementTypeTextField[@name= 'Zip Code* input field']"));
-
         WebElement countryField = driver.findElement(By.xpath("//XCUIElementTypeTextField[@name= 'Country* input field']"));
-
         WebElement paymentButton = driver.findElement(By.xpath("//XCUIElementTypeOther[@name= 'To Payment button']"));
 
         fullNameField.sendKeys("My Name");
@@ -102,8 +104,9 @@ public class iOSAppCheckoutTest {
         countryField.sendKeys("United States");
         countryField.sendKeys(Keys.RETURN); // Tap the Return key to dismiss the keyboard
         paymentButton.click();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
+        // Step 9: Verify /Assert - payment method and review order buttons
         WebElement paymentMethodText = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name= 'Enter a payment method']"));
         WebElement reviewOrderButton = driver.findElement(By.xpath("//XCUIElementTypeOther[@name= 'Review Order button']"));
 
@@ -111,7 +114,6 @@ public class iOSAppCheckoutTest {
         Assert.assertTrue(reviewOrderButton.isDisplayed(), "Review order button is not shown!");
 
         Thread.sleep(2000);
-
     }
 
     @AfterClass
@@ -123,6 +125,8 @@ public class iOSAppCheckoutTest {
 
     public void enterEmail(String email, String locator, int retries) {
         boolean success = false;
+
+        // Retry logic for entering email to ensure it is entered correctly
 
         for (int i = 0; i < retries; i++) {
             try {
@@ -160,5 +164,3 @@ public class iOSAppCheckoutTest {
     }
 
 }
-
-
