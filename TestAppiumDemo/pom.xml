@@ -36,6 +36,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Allure TestNG Integration -->
+        <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-testng</artifactId>
+        <version>2.24.0</version>
+        </dependency>
+
+
         <!-- Jackson Databind (for JSON parsing, if needed) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -50,4 +58,36 @@
             <version>2.15.1</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Allure Maven Plugin -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>serve</goal> <!-- Generate and serve the report -->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <reportVersion>2.24.0</reportVersion>
+                    <allureDownloadUrl>https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.0/allure-commandline-2.24.0.zip</allureDownloadUrl>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+                <configuration>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
 </project>

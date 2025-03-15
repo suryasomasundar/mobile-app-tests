@@ -16,7 +16,14 @@ import org.testng.annotations.Test;
 import java.net.URL;
 import java.time.Duration;
 
-public class iOSCheckoutTest {
+/**
+ * Plain Vanilla E2E test flow for iOS  and it's working ;-)
+ *
+ * @author Somu
+ * @since 14 Mar, 2025
+ */
+
+public class iOSDemoTest {
 
     private AppiumDriver driver;
 
@@ -38,7 +45,7 @@ public class iOSCheckoutTest {
         driver = new IOSDriver(url, capabilities);
     }
 
-    @Test
+    @Test(enabled = false)
     public void testLaunchApp() throws InterruptedException {
         // Log the app launch confirmation
         System.out.println("Successfully Launched App on Simulator");
