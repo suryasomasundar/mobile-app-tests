@@ -25,13 +25,22 @@ public class BasePage {
     }
 
     protected WebElement waitForElementToBeClickable(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
+
 
     protected void enterText(By locator, String text) {
         WebElement element = waitForElementToBeClickable(locator);
         element.clear();
         element.sendKeys(text);
+    }
+
+    protected void clickElement(By locator) {
+        waitForElementToBeClickable(locator).click();
+    }
+
+    protected WebElement findElement(By locator) {
+        return driver.findElement(locator);
     }
 }

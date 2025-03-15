@@ -6,7 +6,6 @@ import ios.pages.CartPage;
 import ios.pages.CheckoutPage;
 import ios.pages.HomePage;
 import ios.pages.ProductPage;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,7 +14,23 @@ import utils.RetryUtil;
 import utils.ScreenshotUtil;
 
 /**
- * This is the e2e test automation class running the entire checkout flow
+ * End-to-end test class for verifying the checkout flow on an iOS simulator.
+ * This test covers the complete user journey from product selection to checkout.
+ *
+ * <p>
+ * The test includes:
+ * <ul>
+ *     <li>Launching the app on an iOS simulator.</li>
+ *     <li>Selecting a product, increasing quantity, and adding it to the cart.</li>
+ *     <li>Navigating to the cart and proceeding to checkout.</li>
+ *     <li>Entering user details, payment information, and verifying the review order.</li>
+ * </ul>
+ * </p>
+ *
+ * <p>
+ * The test is annotated with Allure annotations for detailed reporting and includes
+ * error handling with screenshots and logs for failures.
+ * </p>
  *
  * @author Somu
  * @since 14 Mar, 2025
@@ -32,8 +47,10 @@ public class iOSCheckoutTest {
 
     @BeforeClass
     public void setUp() throws Exception {
+        String platform = "iOS";
+
         driverManager = new AppiumDriverManager();
-        driverManager.initializeDriver();
+        driverManager.initializeDriver(platform);
         driver = driverManager.getDriver();
 
         homePage = new HomePage(driver);
