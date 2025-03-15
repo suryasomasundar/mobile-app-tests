@@ -6,7 +6,7 @@ these steps to get started with mobile app automation.
 ---
 ## **Key Changes to Make in the Script**
 
-This section is for users who already have the necessary setup (Appium, emulators, dependencies, etc.) configured on their machine. If you are setting up on a fresh machine, follow the Installation Guide
+This section is for users who already have the necessary setup (Appium, emulators, dependencies, etc.) configured on their machine. If you are setting up on a fresh machine, follow the below [Installation Guide](#installation-steps)
 
 Before running the tests, ensure the following configurations are updated as per your environment:
 
@@ -30,7 +30,7 @@ Before running the tests, ensure the following configurations are updated as per
 - Once the above configurations are updated, follow the instructions below to execute the tests.
 - Happy testing! Review the execution logs and results for insights.
 
-# **[Installation Guide]()**
+# **[Installation Steps]()**
 ## **Prerequisites**
 
 Before you begin, ensure the following are installed on your system:
@@ -76,7 +76,7 @@ Before you begin, ensure the following are installed on your system:
    ```bash
    git clone https://github.com/appium/WebDriverAgent.git ~/WebDriverAgent
 
-## **Step 4: Set Up Emulators/Simulators*
+## **Step 4: Set Up Emulators/Simulators**
 
 **For iOS**:
 
