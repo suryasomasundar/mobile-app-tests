@@ -1,7 +1,6 @@
 package vanillaFlow;
 
 import io.appium.java_client.AppiumDriver;
-//import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.By;
@@ -70,7 +69,8 @@ public class androidDemoTest {
 
 
         // Step 5: Complete account creation
-        WebElement emailField = driver.findElement(By.xpath("//android.widget.EditText[@content-desc='Username input field']"));
+        Thread.sleep(1000);
+        WebElement emailField = driver.findElement(By.xpath("//android.widget.EditText[@content-desc= 'Username input field']"));
         WebElement passwordField = driver.findElement(By.xpath("//android.widget.EditText[@content-desc='Password input field']"));
         WebElement confirmLoginButton = driver.findElement(By.xpath("(//android.widget.TextView[@text='Login'])[2]"));
 
