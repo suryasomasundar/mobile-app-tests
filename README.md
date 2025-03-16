@@ -131,3 +131,17 @@ Before you begin, ensure the following are installed on your system:
 3. Verify the device names and versions match your environment.Check for the available device and update the script
 4. Run -- brew doctor to diagnose Homebrew issues
 5. Ensure the Appium server is running and the emulator/simulator is booted
+
+## 🚀 Bonus Features
+
+### ✅ One-Click Local Test Runner
+Set up your environment and run Android/iOS Appium tests in a single step:
+
+📄 [`setup_and_run_tests.sh`](https://github.com/suryasomasundar/mobile-app-tests/blob/master/TestAppiumDemo/setup_and_run_tests.sh)
+
+```bash
+./TestAppiumDemo/setup_and_run_tests.sh
+
+
+
+
