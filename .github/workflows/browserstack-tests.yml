@@ -1,0 +1,54 @@
+name: Run Appium Tests on BrowserStack
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        platform: [android, ios]
+
+    env:
+      BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+      BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
+    steps:
+    - name: 🔄 Checkout source code
+      uses: actions/checkout@v3
+
+    - name: ☕ Set up Java 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: 🧳 Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: 🧪 Run Appium ${{ matrix.platform }} Test on BrowserStack
+      working-directory: ./TestAppiumDemo
+      run: |
+        echo "✅ Starting Appium test for ${{ matrix.platform }}..."
+
+        if [ "${{ matrix.platform }}" = "android" ]; then
+          mvn -Dtest=browserstack.androidTestFlow \
+              -DBROWSERSTACK_USERNAME=$BROWSERSTACK_USERNAME \
+              -DBROWSERSTACK_ACCESS_KEY=$BROWSERSTACK_ACCESS_KEY test
+        elif [ "${{ matrix.platform }}" = "ios" ]; then
+          mvn -Dtest=browserstack.iOSTestFlow \
+              -DBROWSERSTACK_USERNAME=$BROWSERSTACK_USERNAME \
+              -DBROWSERSTACK_ACCESS_KEY=$BROWSERSTACK_ACCESS_KEY test
+        fi
+
+        echo "### ✅ Appium test completed for: ${{ matrix.platform }}" >> $GITHUB_STEP_SUMMARY
+        echo "🔗 [View BrowserStack Results](https://app-automate.browserstack.com/dashboard/v2/builds)" >> $GITHUB_STEP_SUMMARY
