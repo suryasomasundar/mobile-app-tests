@@ -141,7 +141,23 @@ Set up your environment and run Android/iOS Appium tests in a single step:
 
 ```bash
 ./TestAppiumDemo/setup_and_run_tests.sh
+``` 
 
+### ✅ CI/CD Integration with BrowserStack
 
+Automated Android & iOS test execution is powered by **GitHub Actions** and **BrowserStack**.
 
+#### 🚦 What’s Included:
+- 🔁 Triggered on every push to the `master` branch
+- 📱 Runs tests on real Android & iOS devices in parallel
+- 🧪 Matrix-based strategy for platform separation
+- 🧾 Test logs, session videos, and network logs enabled
+- 🧠 Dynamically named builds for traceability
 
+#### 🛠 Workflow File:
+📄 [`browserstack-tests.yml`](https://github.com/suryasomasundar/mobile-app-tests/blob/master/.github/workflows/browserstack-tests.yml)
+
+#### 📊 Live Test Dashboard:
+🔗 [BrowserStack Test Results](https://app-automate.browserstack.com/dashboard/v2/builds)
+
+> No setup needed — just push code and your mobile tests run automatically 🎉
